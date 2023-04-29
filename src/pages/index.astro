@@ -1,0 +1,61 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import Plane from '../components/Plane'
+---
+
+<Layout title="Welcome to Astro.">
+	<main>
+		<Plane client:only/>
+		<div class="container">
+			<h1 class="title-h1">Peter's Website</h1>
+			<p class="description-p">Press here to learn more about me...</p>
+			<button class="entry-button">
+				<p>Learn More</p>
+			</button>
+		</div>
+	</main>
+</Layout>
+
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+	body {
+		margin: 0;
+		padding: 0;
+	}
+	main {
+		position: absolute;
+	}
+	.container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		margin: 5rem 0 5rem 0;
+	}
+	.title-h1 {
+		font-size: 10rem;
+		font-family: 'Dancing Script', cursive;
+		color: aliceblue;
+	}
+	.description-p {
+		color:aliceblue;
+
+	}
+	.entry-button {
+		border: white solid 1px;
+		padding: 1rem;
+		border-radius: 2rem;
+	}
+	.entry-button:hover {
+		background-color: aliceblue;
+		color: black;
+	}
+	.entry-button p {
+		color: aliceblue;
+		font-size: 2rem;
+	}
+	.entry-button p:hover {
+		color: black;
+	}
+</style>
