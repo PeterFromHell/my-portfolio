@@ -1,8 +1,15 @@
 import React, {FormEvent, useState} from 'react'
+import { Configuration, OpenAIApi } from 'openai'
 
 const Chatgpt = () => {
 
+    const configuration = new Configuration({
+        apiKey: import.meta.env.OPENAI_API_KEY,
+    })
+    const openai = new OpenAIApi(configuration)
+
     const [prompt, setPrompt] = React.useState('')
+    const [output, setOutput] = React.useState<string>('')
 
     const sendMessage = async (e:FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -11,7 +18,18 @@ const Chatgpt = () => {
         const input = prompt.trim
         setPrompt('')
 
-        
+        const completion = await openai.createChatCompletion({
+            model: 'gpt-3.5-turbo',
+            messages: [{role: 'user', content: `${input}`}],
+        })
+
+        const res = completion.data.choices[0].message?.content
+        if (!e.defaultPrevented) {
+            alert('prevented')
+        }
+        if (res !== undefined) {
+            setOutput(res)
+        }
     }
 
     return (
@@ -32,7 +50,7 @@ const Chatgpt = () => {
                 </button>
             </form>
             <div className='bg-gray-700/50 h-24 text-[1rem] p-5'>
-                reply
+                {output}
             </div>
             
         </div>
